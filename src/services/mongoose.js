@@ -18,11 +18,14 @@ if (config.env === 'dev') {
 }
 
 exports.connect = () => {
+  console.log(config.env)
   var mongoURI = (config.env === 'prod' || 'dev' ? config.mongo.uri : config.mongo.testURI)
 
+  console.log(mongoURI);
   mongoose.connect(mongoURI, {
     keepAlive: 1,
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   })
 
   mongoose.set('useCreateIndex', true)

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "./node_modules/.bin/nodemon src/index.js",
+    "start": "env NODE_ENV=prod node src/index.js",
+    "dev": "env NODE_ENV=dev ./node_modules/.bin/nodemon src/index.js",
     "lint": "./node_modules/.bin/eslint **/*.js",
     "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --exit"
   },
@@ -26,6 +26,7 @@
     "nodemon": "^2.0.4"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",

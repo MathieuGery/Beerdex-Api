@@ -1,14 +1,14 @@
 version: "3"
-services: 
+services:
   api:
     build: .
-    environment: 
+    environment:
       - MONGOURI=mongodb://mongo/yourapp
-    ports: 
+    ports:
       - 3000:3000
-    depends_on: 
+    depends_on:
       - mongo
-  
+
   mongo:
     image: mongo
     ports:
