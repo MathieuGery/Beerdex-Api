@@ -63,7 +63,7 @@ userSchema.post('save', async function saved (doc, next) {
   try {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
     const msg = {
-      to: 'mathieu.gery@outlook.com', // Change to your recipient
+      to: this.email, // Change to your recipient
       from: 'contact.brewdex@gery.me', // Change to your verified sender
       subject: 'BrewDex confirm account',
       text: 'Click here to activate',
