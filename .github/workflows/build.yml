@@ -10,5 +10,5 @@ jobs:
       with:
         name: MathieuGery/BrewDex-Api/BrewDexAPi
         username: ${{ github.actor }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        password: ${{ secrets.DOCKER_TOKEN }}
         registry: docker.pkg.github.com
