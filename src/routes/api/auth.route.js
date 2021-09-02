@@ -6,12 +6,13 @@ const router = express.Router()
 const authController = require('../../controllers/auth.controller')
 const validator = require('express-validation')
 const { create } = require('../../validations/user.validation')
+const { beer } = require('../../validations/addBeer.validation')
 const auth = require('../../middlewares/authorization')
 
 router.post('/register', validator(create), authController.register) // validate and register
 router.post('/login', authController.login) // login
 router.get('/confirm', authController.confirm)
-router.post('/add_beer', auth(), authController.addBeer)
+router.post('/add_beer', validator(beer), auth(), authController.addBeer)
 // Authentication example
 router.post('/secret1', auth(), (req, res) => {
   res.json({ message: 'Only auth users can access' })

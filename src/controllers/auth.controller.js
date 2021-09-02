@@ -44,15 +44,13 @@ exports.confirm = async (req, res, next) => {
 }
 
 exports.addBeer = async (req, res, next) => {
-  let user = req.user
-  console.log(user)
-  if (!req.body.code) {
+  if (!req.body.beer) {
     res.status(400).json('No beer id specified')
-  } else if (!/^\d+$/.test(req.body.code.code)) {
+  } else if (!/^\d+$/.test(req.body.beer.code)) {
     return res.status(400).json('Wrong bar code specified')
   }
   try {
-    let resp = await User.findByIdAndUpdate(req.user._id, {$push: {beers: req.body.code}}, {new: true})
+    let resp = await User.findByIdAndUpdate(req.user._id, {$push: {beers: req.body.beer}}, {new: true})
     return res.json({message: 'OK', user: resp})
   } catch (error) {
     next(error)
