@@ -48,8 +48,8 @@ exports.addBeer = async (req, res, next) => {
   console.log(user)
   if (!req.body.code) {
     res.status(400).json('No beer id specified')
-  } else if (!/^\d+$/.test(req.body.code)) {
-    res.status(400).json('Wrong bar code specified')
+  } else if (!/^\d+$/.test(req.body.code.code)) {
+    return res.status(400).json('Wrong bar code specified')
   }
   try {
     let resp = await User.findByIdAndUpdate(req.user._id, {$push: {beers: req.body.code}}, {new: true})
