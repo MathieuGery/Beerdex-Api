@@ -1,6 +1,6 @@
 'use strict'
 
-const axios = require('axios');
+const axios = require('axios')
 const express = require('express')
 const router = express.Router()
 const authController = require('../../controllers/auth.controller')
@@ -13,7 +13,7 @@ router.post('/login', authController.login) // login
 router.get('/confirm', authController.confirm)
 
 // Authentication example
-router.post('/secret1', auth(), (req, res) => {
+router.post('/caca', auth(), (req, res) => {
 
   if (!req.body.product_id) {
     res.status(400).json('No product id specified')
