@@ -68,8 +68,8 @@ userSchema.post('save', async function saved (doc, next) {
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
     const msg = {
       to: this.email, // Change to your recipient
-      from: 'contact.mytelegram@gery.me', // Change to your verified sender
-      subject: 'MyTelegram confirm account',
+      from: 'verify.accountm@gery.me', // Change to your verified sender
+      subject: 'BeerScanner confirm account',
       text: 'Click here to activate',
       html: `<div><h1>Hello new user!</h1><p>Click <a href="${config.hostname}/api/auth/confirm?key=${this.activationKey}">link</a> to activate your new account.</p></div><div><h1>Hello developer!</h1><p>Feel free to change this template ;).</p></div>`
     }
@@ -136,6 +136,13 @@ userSchema.statics = {
     if (!user.active) throw new APIError(`User not activated`, httpStatus.UNAUTHORIZED)
 
     return user
+  },
+
+  async addBeerToMyAccount (payload) {
+    const { code } = payload
+
+    if (!code) throw new APIError('Bar Code must be provided')
+    console.log(this.name)
   }
 }
 
