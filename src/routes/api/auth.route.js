@@ -13,21 +13,8 @@ router.post('/login', authController.login) // login
 router.get('/confirm', authController.confirm)
 
 // Authentication example
-router.post('/caca', auth(), (req, res) => {
-
-  if (!req.body.product_id) {
-    res.status(400).json('No product id specified')
-  }
-  // example route for auth
-  axios.get('https://world.openfoodfacts.org/api/v0/product/' + req.body.product_id)
-    .then(function (response) {
-      // handle success
-      res.json({ message: response.data })
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error)
-    })
+router.post('/secret1', auth(), (req, res) => {
+  res.json({ message: 'Only auth users can access' })
 })
 router.get('/secret2', auth(['admin']), (req, res) => {
   // example route for auth
