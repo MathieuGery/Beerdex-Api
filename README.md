@@ -26,7 +26,3 @@
 | APP_SECRET           | Secret for running app. Use a strong hash in production and make sure to rotate it    | ddd36434-80fe-4f18-b3b6-e645697f7b84 |
 | MONGOURI             | MongoDB connection URI                                                                | mongodb://localhost:27017/yourapp    |
 | MONGOTESTURI         | MongoDB connection URI for testing                                                    | mongodb://localhost:27017/test-app   |
-| TRANSPORTER_HOST     | Mail server host                                                                      | smtp.mymailer.com                    |
-| TRANSPORTER_PORT     | Mail server port                                                                      | 2525                                 |
-| TRANSPORTER_USERNAME | Mail server username                                                                  | harrypotter                          |
-| TRANSPORTER_PASSWORD | Mail server password                                                                  | alohomora                            |
