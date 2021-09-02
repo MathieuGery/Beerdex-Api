@@ -8,6 +8,9 @@ const auth = require('../../middlewares/authorization')
 
 router.post('/infos', auth(), (req, res) => {
 
+  let keywords = ''
+  let categories = ''
+
   if (!req.body.product_id) {
     res.status(400).json('No product id specified')
   }
@@ -16,10 +19,13 @@ router.post('/infos', auth(), (req, res) => {
     .then(function (response) {
       // handle success
       if (response.data.status === 0) {
-        res.status(400).json('Ce produit n\'existe pas')
+        res.status(404).json('Ce produit n\'existe pas')
       }
-      let categories = response.data.product.categories
-      if (categories.includes("Bière")){
+      if (response.data.product.categories)
+        categories = response.data.product.categories
+      if (response.data.product._keywords)
+        keywords = response.data.product._keywords
+      if (categories.toLowerCase().includes('bière') || categories.toLocaleLowerCase().includes('beer')|| keywords.includes('biere') || keywords.includes('beer') ){
         res.json({ infos: response.data })
       }
       else {
