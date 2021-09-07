@@ -1,8 +1,9 @@
 'use strict'
 const axios = require('axios')
 const config = require('../config')
+const checkBeerValidity = require('../utils/checkBeerValidity')
 
-exports.get_beer_infos = async (req, res, next) => {
+exports.get_beer_infos = async (req, res) => {
   let keywords = ''
   let categories = ''
 
@@ -22,7 +23,7 @@ exports.get_beer_infos = async (req, res, next) => {
       if (response.data.product._keywords) {
         keywords = response.data.product._keywords
       }
-      if (categories.toLowerCase().includes('bière') || categories.toLocaleLowerCase().includes('beer')|| keywords.includes('biere') || keywords.includes('beer')) {
+      if(checkBeerValidity.checkBeerValidity(response.data.product.brands) || categories.toLowerCase().includes('bière') || categories.toLocaleLowerCase().includes('beer') || keywords.includes('biere') || keywords.includes('beer')) {
         res.json({ infos: response.data })
       } else {
         res.status(400).json('Ceci n\'est pas une bière')
