@@ -23,7 +23,7 @@ exports.get_beer_infos = async (req, res) => {
       if (response.data.product._keywords) {
         keywords = response.data.product._keywords
       }
-      if(checkBeerValidity.checkBeerValidity(response.data.product.brands) || categories.toLowerCase().includes('bière') || categories.toLocaleLowerCase().includes('beer') || keywords.includes('biere') || keywords.includes('beer')) {
+      if(checkBeerValidity.checkBeerValidity(response.data.product.brands_tags) || categories.toLowerCase().includes('bière') || categories.toLowerCase().includes('beer') || keywords.includes('biere') || keywords.includes("bierre")) {
         res.json({ infos: response.data })
       } else {
         res.status(400).json('Ceci n\'est pas une bière')
