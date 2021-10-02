@@ -2,6 +2,7 @@
 const axios = require('axios')
 const config = require('../config')
 const checkBeerValidity = require('../utils/checkBeerValidity')
+const User = require('../models/user.model')
 
 exports.get_beer_infos = async (req, res) => {
   let keywords = ''
@@ -33,4 +34,14 @@ exports.get_beer_infos = async (req, res) => {
       // handle error
       console.log(error)
     })
+}
+
+
+exports.addBeer = async (req, res, next) => {
+  try {
+    let resp = await User.findByIdAndUpdate(req.user._id, {$push: {beers: req.body.beer}}, {new: true})
+    return res.json({message: 'OK', user: resp})
+  } catch (error) {
+    next(error)
+  }
 }
