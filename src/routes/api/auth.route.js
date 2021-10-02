@@ -13,6 +13,7 @@ router.post('/register', validator(create), authController.register) // validate
 router.post('/login', authController.login) // login
 router.get('/confirm', authController.confirm)
 router.get('/connected_user_infos', auth(), authController.connectedUserInfos)
+router.get('/user_infos/:id', auth(), authController.UserInfosById)
 //List beers collection
 router.get('/list_beers', auth(), authController.listBeersConnectedUser)
 // Authentication example

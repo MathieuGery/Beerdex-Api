@@ -53,6 +53,15 @@ exports.connectedUserInfos = async (req, res, next) => {
   }
 }
 
+exports.UserInfosById = async (req, res, next) => {
+  try {
+    let user = await User.findById(req.params.id)
+    return res.json({ message: 'OK', user})
+  } catch (error) {
+    next(error)
+  }
+}
+
 exports.listBeersConnectedUser = async (req, res, next) => {
   try {
     let resp = await User.findById(req.user._id)
