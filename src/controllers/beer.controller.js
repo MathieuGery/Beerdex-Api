@@ -36,7 +36,6 @@ exports.get_beer_infos = async (req, res) => {
     })
 }
 
-
 exports.addBeer = async (req, res, next) => {
   try {
     let resp = await User.findByIdAndUpdate(req.user._id, {$push: {beers: req.body.beer}}, {new: true})

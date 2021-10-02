@@ -12,6 +12,8 @@ const auth = require('../../middlewares/authorization')
 router.post('/register', validator(create), authController.register) // validate and register
 router.post('/login', authController.login) // login
 router.get('/confirm', authController.confirm)
+//List beers collection
+router.get('/list_beers', auth(), authController.listBeersConnectedUser)
 // Authentication example
 router.post('/secret1', auth(), (req, res) => {
   res.json({ message: 'Only auth users can access' })
