@@ -22,7 +22,8 @@ const userSchema = new Schema({
     type: String,
     required: true,
     minlength: 4,
-    maxlength: 128
+    maxlength: 128,
+    select: false
   },
   name: {
     type: String,
@@ -30,7 +31,8 @@ const userSchema = new Schema({
   },
   activationKey: {
     type: String,
-    unique: true
+    unique: true,
+    select: false
   },
   active: {
     type: Boolean,
@@ -137,13 +139,6 @@ userSchema.statics = {
 
     return user
   },
-
-  async addBeerToMyAccount (payload) {
-    const { code } = payload
-
-    if (!code) throw new APIError('Bar Code must be provided')
-    console.log(this.name)
-  }
 }
 
 module.exports = mongoose.model('User', userSchema)

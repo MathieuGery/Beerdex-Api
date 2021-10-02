@@ -43,10 +43,19 @@ exports.confirm = async (req, res, next) => {
   }
 }
 
+
+exports.connectedUserInfos = async (req, res, next) => {
+  try {
+    let user = await User.findById(req.user._id)
+    return res.json({ message: 'OK', user})
+  } catch (error) {
+    next(error)
+  }
+}
+
 exports.listBeersConnectedUser = async (req, res, next) => {
   try {
     let resp = await User.findById(req.user._id)
-    console.log(resp)
     return res.json({message: 'OK', nb_beers: (resp.beers).length, user_beers: resp.beers})
   } catch (error) {
     next(error)
