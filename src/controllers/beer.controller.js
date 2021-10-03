@@ -39,16 +39,6 @@ exports.get_beer_infos = async (req, res) => {
 
 exports.addBeer = async (req, res, next) => {
   try {
-    let resp = await User.findByIdAndUpdate(req.user._id, {$push: {beers: req.body.beer}}, {new: true})
-    console.log(resp)
-    return res.json({message: 'OK', user_beers: resp.beers})
-  } catch (error) {
-    next(error)
-  }
-}
-
-exports.addBeer2 = async (req, res, next) => {
-  try {
     const body = req.body
     body.user_id = req.user._id
     const beer = new Beer(req.body)
