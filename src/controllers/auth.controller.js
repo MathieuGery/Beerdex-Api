@@ -46,7 +46,13 @@ exports.confirm = async (req, res, next) => {
 
 exports.connectedUserInfos = async (req, res, next) => {
   try {
-    let user = await User.findById(req.user._id)
+    let resp = await User.findById(req.user._id)
+    let user = JSON.stringify(resp)
+    user = JSON.parse(user)
+    user.total_scanned_beers = user.beers.length
+    let favorite_beers = 0
+    user.beers.forEach(element => {if(element.favorite) favorite_beers++});
+    user.favorite_beers = favorite_beers
     return res.json({ message: 'OK', user})
   } catch (error) {
     next(error)
@@ -55,7 +61,13 @@ exports.connectedUserInfos = async (req, res, next) => {
 
 exports.UserInfosById = async (req, res, next) => {
   try {
-    let user = await User.findById(req.params.id)
+    let resp = await User.findById(req.params.id)
+    let user = JSON.stringify(resp)
+    user = JSON.parse(user)
+    user.total_scanned_beers = user.beers.length
+    let favorite_beers = 0
+    user.beers.forEach(element => {if(element.favorite) favorite_beers++});
+    user.favorite_beers = favorite_beers
     return res.json({ message: 'OK', user})
   } catch (error) {
     next(error)
