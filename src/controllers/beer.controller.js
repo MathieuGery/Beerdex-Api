@@ -45,3 +45,22 @@ exports.addBeer = async (req, res, next) => {
     next(error)
   }
 }
+
+exports.editBeer = async (req, res, next) => {
+  try {
+    let found = false
+    let resp = await User.findById(req.user._id)
+    resp.beers.filter(function(item) { if (item.code === parseInt(req.params.id)) {
+      if (req.body.beer.comment)
+        item.comment = req.body.beer.comment
+      if (req.body.beer.rating)
+        item.rating = req.body.beer.rating
+      found = true
+    }});
+    if (found)
+     await User.findByIdAndUpdate(req.user._id, {$set: {beers: resp.beers}}, {new: true})
+    return res.json({message: 'OK', user_beers: resp.beers})
+  } catch (error) {
+    next(error)
+  }
+}
