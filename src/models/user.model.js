@@ -128,11 +128,12 @@ userSchema.statics = {
     const { email, password } = payload
     if (!email) throw new APIError('Email must be provided for login')
 
-    const user = await this.findOne({ email }).exec()
+    const user = await this.findOne({ email }).select(['password', 'active']).exec()
     if (!user) throw new APIError(`No user associated with ${email}`, httpStatus.NOT_FOUND)
 
     const passwordOK = await user.passwordMatches(password)
 
+    console.log(user)
     if (!passwordOK) throw new APIError(`Password mismatch`, httpStatus.UNAUTHORIZED)
 
     if (!user.active) throw new APIError(`User not activated`, httpStatus.UNAUTHORIZED)
