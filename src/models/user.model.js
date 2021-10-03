@@ -42,10 +42,6 @@ const userSchema = new Schema({
     type: String,
     default: 'user',
     enum: roles
-  },
-  beers: {
-    type: Array,
-    default: []
   }
 }, {
   timestamps: true

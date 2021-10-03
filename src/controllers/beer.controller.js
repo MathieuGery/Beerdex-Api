@@ -2,7 +2,8 @@
 const axios = require('axios')
 const config = require('../config')
 const checkBeerValidity = require('../utils/checkBeerValidity')
-const User = require('../models/user.model')
+const httpStatus = require('http-status')
+const Beer = require('../models/beer.model')
 
 exports.get_beer_infos = async (req, res) => {
   let keywords = ''
@@ -43,6 +44,19 @@ exports.addBeer = async (req, res, next) => {
     return res.json({message: 'OK', user_beers: resp.beers})
   } catch (error) {
     next(error)
+  }
+}
+
+exports.addBeer2 = async (req, res, next) => {
+  try {
+    const body = req.body
+    body.user_id = req.user._id
+    const beer = new Beer(req.body)
+    const savedBeer = await beer.save()
+    res.status(httpStatus.CREATED)
+    res.send(savedBeer.transform())
+  } catch (error) {
+    return next(error)
   }
 }
 
