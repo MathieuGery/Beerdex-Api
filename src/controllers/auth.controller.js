@@ -51,6 +51,13 @@ exports.connectedUserInfos = async (req, res, next) => {
     const user_beers = await Beer.find({ user_id: req.user._id }).exec()
     let user = JSON.stringify(resp)
     user = JSON.parse(user)
+    let fav_beers = 0
+    user_beers.forEach(element => {
+      if (element.favorite)
+        fav_beers++
+    });
+    user.favorite_beers = fav_beers
+    user.total_scanned_beers = user_beers.length
     user.beers = user_beers
     return res.json({ message: 'OK', user})
   } catch (error) {
@@ -64,6 +71,7 @@ exports.UserInfosById = async (req, res, next) => {
     const user_beers = await Beer.find({ user_id: req.params.id }).exec()
     let user = JSON.stringify(resp)
     user = JSON.parse(user)
+    user.total_scanned_beers = user_beers.length
     user.beers = user_beers
     return res.json({ message: 'OK', user})
   } catch (error) {
