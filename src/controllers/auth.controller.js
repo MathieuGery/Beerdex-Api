@@ -1,6 +1,7 @@
 'use strict'
 
 const User = require('../models/user.model')
+const Beer = require('../models/beer.model')
 const jwt = require('jsonwebtoken')
 const config = require('../config')
 const httpStatus = require('http-status')
@@ -47,8 +48,10 @@ exports.confirm = async (req, res, next) => {
 exports.connectedUserInfos = async (req, res, next) => {
   try {
     let resp = await User.findById(req.user._id)
+    const user_beers = await Beer.find({ user_id: req.user._id }).exec()
     let user = JSON.stringify(resp)
     user = JSON.parse(user)
+    user.beers = user_beers
     return res.json({ message: 'OK', user})
   } catch (error) {
     next(error)
@@ -58,8 +61,10 @@ exports.connectedUserInfos = async (req, res, next) => {
 exports.UserInfosById = async (req, res, next) => {
   try {
     let resp = await User.findById(req.params.id)
+    const user_beers = await Beer.find({ user_id: req.user._id }).exec()
     let user = JSON.stringify(resp)
     user = JSON.parse(user)
+    user.beers = user_beers
     return res.json({ message: 'OK', user})
   } catch (error) {
     next(error)
