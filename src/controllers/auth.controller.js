@@ -61,7 +61,7 @@ exports.connectedUserInfos = async (req, res, next) => {
 exports.UserInfosById = async (req, res, next) => {
   try {
     let resp = await User.findById(req.params.id)
-    const user_beers = await Beer.find({ user_id: req.user._id }).exec()
+    const user_beers = await Beer.find({ user_id: req.params.id }).exec()
     let user = JSON.stringify(resp)
     user = JSON.parse(user)
     user.beers = user_beers

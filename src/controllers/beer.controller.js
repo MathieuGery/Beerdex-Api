@@ -52,18 +52,21 @@ exports.addBeer = async (req, res, next) => {
 
 exports.editBeer = async (req, res, next) => {
   try {
-    let found = false
-    let resp = await User.findById(req.user._id)
-    resp.beers.filter(function(item) { if (item.code === parseInt(req.params.id)) {
-      if (req.body.beer.comment)
-        item.comment = req.body.beer.comment
-      if (req.body.beer.rating)
-        item.rating = req.body.beer.rating
-      found = true
-    }});
-    if (found)
-     await User.findByIdAndUpdate(req.user._id, {$set: {beers: resp.beers}}, {new: true})
-    return res.json({message: 'OK', user_beers: resp.beers})
+    let resp = await Beer.findById(req.params.id).catch(() => { res.status(400)
+      return res.json({message: 'Beer not found'})})
+    console.log(req.body.favorite)
+    if (resp.user_id != req.user._id) {
+      res.status(401)
+      return res.json({message: 'Not authorized'})
+    }
+    if (req.body.comment)
+      resp.comment = req.body.comment
+    if (req.body.rating)
+      resp.rating = req.body.rating
+    if (req.body.favorite == false || req.body.favorite)
+      resp.favorite = req.body.favorite
+    let result = await Beer.findByIdAndUpdate(req.params.id, {$set: resp}, {new: true})
+    return res.json({message: 'OK', user_beers: result})
   } catch (error) {
     next(error)
   }
