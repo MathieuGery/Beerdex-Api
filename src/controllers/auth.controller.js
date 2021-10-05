@@ -94,8 +94,8 @@ exports.editInfos = async (req, res, next) => {
       if (req.body[field])
         userInfos[field] = req.body[field]
     })
-    let ret = await User.findByIdAndUpdate(req.user._id, userInfos, {new: true})
-    return res.json({ message: 'OK', ret})
+    let user = await User.findByIdAndUpdate(req.user._id, userInfos, {new: true})
+    return res.json({ message: 'OK', user})
   } catch (error) {
     next(error)
   }
