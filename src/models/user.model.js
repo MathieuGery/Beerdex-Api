@@ -29,6 +29,25 @@ const userSchema = new Schema({
     type: String,
     maxlength: 50
   },
+  location: {
+    type: String,
+    maxlength: 50,
+    default: ""
+  },
+  country: {
+    type: String,
+    maxlength: 30,
+    default: ""
+  },
+  description: {
+    type: String,
+    maxlength: 280,
+    default: ""
+  },
+  image: {
+    type: Buffer,
+    default: null
+  },
   activationKey: {
     type: String,
     unique: true,

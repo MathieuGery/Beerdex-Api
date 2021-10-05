@@ -5,13 +5,13 @@ const express = require('express')
 const router = express.Router()
 const authController = require('../../controllers/auth.controller')
 const validator = require('express-validation')
-const { create } = require('../../validations/user.validation')
-const { beer } = require('../../validations/addBeer.validation')
+const { create, edit } = require('../../validations/user.validation')
 const auth = require('../../middlewares/authorization')
 
 router.post('/register', validator(create), authController.register) // validate and register
 router.post('/login', authController.login) // login
 router.get('/confirm', authController.confirm)
+router.post('/edit_infos', validator(edit), auth(), authController.editInfos)
 router.get('/connected_user_infos', auth(), authController.connectedUserInfos)
 router.get('/user_infos/:id', auth(), authController.UserInfosById)
 //List beers collection

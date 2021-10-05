@@ -71,9 +71,31 @@ exports.UserInfosById = async (req, res, next) => {
     const user_beers = await Beer.find({ user_id: req.params.id }).exec()
     let user = JSON.stringify(resp)
     user = JSON.parse(user)
+    let fav_beers = 0
+    user_beers.forEach(element => {
+      if (element.favorite)
+        fav_beers++
+    });
+    user.favorite_beers = fav_beers
     user.total_scanned_beers = user_beers.length
     user.beers = user_beers
     return res.json({ message: 'OK', user})
+  } catch (error) {
+    next(error)
+  }
+}
+
+exports.editInfos = async (req, res, next) => {
+  try {
+    const resp = await User.findById(req.user._id)
+    let userInfos = JSON.parse(JSON.stringify(resp))
+    const fields = ['location', 'name', 'country', 'description', 'image']
+    fields.forEach((field) => {
+      if (req.body[field])
+        userInfos[field] = req.body[field]
+    })
+    let ret = await User.findByIdAndUpdate(req.user._id, userInfos, {new: true})
+    return res.json({ message: 'OK', ret})
   } catch (error) {
     next(error)
   }
