@@ -48,6 +48,10 @@ const userSchema = new Schema({
     type: String,
     default: ""
   },
+  notifications: {
+    type: Boolean,
+    default: true
+  },
   activationKey: {
     type: String,
     unique: true,

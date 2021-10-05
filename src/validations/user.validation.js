@@ -16,7 +16,8 @@ module.exports = {
       name: Joi.string().max(128),
       description: Joi.string().max(280),
       location: Joi.string().max(50),
-      country: Joi.string().max(30)
+      country: Joi.string().max(30),
+      notifications: Joi.boolean()
     }
   }
 }

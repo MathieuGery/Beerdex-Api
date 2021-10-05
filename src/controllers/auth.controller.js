@@ -89,9 +89,9 @@ exports.editInfos = async (req, res, next) => {
   try {
     const resp = await User.findById(req.user._id)
     let userInfos = JSON.parse(JSON.stringify(resp))
-    const fields = ['location', 'name', 'country', 'description', 'image']
+    const fields = ['location', 'name', 'country', 'description', 'image', 'notifications']
     fields.forEach((field) => {
-      if (req.body[field])
+      if (req.body[field] || field === 'notifications')
         userInfos[field] = req.body[field]
     })
     let user = await User.findByIdAndUpdate(req.user._id, userInfos, {new: true})
