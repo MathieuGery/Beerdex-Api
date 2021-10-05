@@ -42,7 +42,6 @@ exports.start = () => {
       console.log(`Error : ${err}`)
       process.exit(-1)
     }
-
     console.log(`${config.app} is running on ${config.port}`)
   })
 }
