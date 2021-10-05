@@ -46,7 +46,7 @@ const userSchema = new Schema({
   },
   image: {
     type: String,
-    default: null
+    default: ""
   },
   activationKey: {
     type: String,

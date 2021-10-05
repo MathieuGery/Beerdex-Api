@@ -12,9 +12,19 @@ const passport = require('passport')
 const passportJwt = require('../services/passport')
 
 const app = express()
-app.use(bodyParser.json())
 app.use(cors())
 app.use(helmet())
+
+app.use(bodyParser.json({
+  limit: '50mb'
+}));
+
+app.use(bodyParser.urlencoded({
+  limit: '50mb',
+  parameterLimit: 100000,
+  extended: true
+}));
+
 
 if (config.env !== 'test') app.use(morgan('combined'))
 
