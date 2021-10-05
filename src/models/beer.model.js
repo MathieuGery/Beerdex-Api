@@ -1,11 +1,5 @@
 'use strict'
 const mongoose = require('mongoose')
-const bcrypt = require('bcrypt-nodejs')
-const httpStatus = require('http-status')
-const APIError = require('../utils/APIError')
-const config = require('../config')
-const sgMail = require('@sendgrid/mail')
-const { unique } = require('joi/lib/types/array')
 const Schema = mongoose.Schema
 
 const beerSchema = new Schema({
